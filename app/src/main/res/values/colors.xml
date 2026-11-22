@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#10B981</color>
+    <color name="colorPrimaryDark">#0B8A5F</color>
+    <color name="colorAccent">#10B981</color>
+
+    <color name="bg_page">#F5F6F8</color>
+    <color name="bg_card">#FFFFFF</color>
+    <color name="divider">#E8EAED</color>
+
+    <color name="text_primary">#111827</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="text_tertiary">#9CA3AF</color>
+
+    <color name="status_inactive">#DC2626</color>
+    <color name="status_badge_active">#0B8A5F</color>
+
+    <color name="ic_launcher_background">#FFFFFF</color>
+</resources>

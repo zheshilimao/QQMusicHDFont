@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">QQ音乐HD 增强</string>
+    <string name="module_description">字体、更新与状态栏</string>
+
+    <string name="status_active">● LSPosed 已连接</string>
+    <string name="status_inactive">● 未连接 LSPosed，请先在 LSPosed 中启用本模块</string>
+
+    <string name="header_title">QQ音乐HD 增强</string>
+    <string name="header_subtitle">字体 · 更新 · 状态栏</string>
+
+    <string name="section_font">字体大小</string>
+    <string name="section_other">其他</string>
+
+    <string name="preview_title">预览</string>
+    <string name="preview_body">QQ音乐 HD\n正在播放：夜曲</string>
+
+    <string name="preset_small">小</string>
+    <string name="preset_standard">标准</string>
+    <string name="preset_large">大</string>
+    <string name="preset_xlarge">特大</string>
+    <string name="preset_huge">超大</string>
+
+    <string name="setting_fix_status_bar">启动状态栏适配</string>
+    <string name="setting_fix_status_bar_hint">修复冷启动时状态栏短暂显示为黑色</string>
+    <string name="setting_disable_update">禁止更新提醒</string>
+    <string name="setting_disable_update_hint">屏蔽「发现新版本」升级弹窗与自动检查</string>
+
+    <string name="setting_hide_icon">隐藏桌面图标</string>
+    <string name="setting_hide_icon_hint">隐藏后仍可从 LSPosed 模块列表「打开」进入</string>
+</resources>

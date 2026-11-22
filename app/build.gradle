@@ -1,0 +1,83 @@
+plugins {
+    id 'com.android.application'
+}
+
+// 同一套签名：keystore.properties 存在时 debug / release 都用它；
+// 不存在时两者都回退到默认 debug 签名，保证两个构建产物签名一致。
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+def hasKeystore = keystorePropertiesFile.exists()
+if (hasKeystore) {
+    keystorePropertiesFile.withReader('UTF-8') { reader ->
+        keystoreProperties.load(reader)
+    }
+}
+
+android {
+    namespace 'com.qqmusicpad.fontsize'
+    // libxposed:service:102.0.0 requires minCompileSdk 37.
+    compileSdk 37
+
+    defaultConfig {
+        applicationId 'com.qqmusicpad.fontsize'
+        // libxposed:service:102.0.0 declares minSdk 26; do not override its manifest.
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName '1.0.1'
+    }
+
+    signingConfigs {
+        shared {
+            if (hasKeystore) {
+                storeFile rootProject.file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
+        }
+    }
+
+    def targetSigning = signingConfigs.getByName(hasKeystore ? 'shared' : 'debug')
+
+    buildTypes {
+        debug {
+            signingConfig targetSigning
+            // Debug 包不开启 R8，保留类名和栈信息，便于排查 Hook。
+            minifyEnabled false
+            shrinkResources false
+        }
+        release {
+            signingConfig targetSigning
+            // Release 包开启 R8 压缩、混淆和资源裁剪。
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        // 需要 BuildConfig.DEBUG 区分日志：debug 输出日志，release 由 R8 连同日志调用一起裁掉。
+        buildConfig = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+        encoding 'UTF-8'
+    }
+
+    lint {
+        abortOnError false
+        disable 'ExpiredTargetSdkVersion', 'OldTargetApi'
+    }
+}
+
+dependencies {
+    compileOnly 'io.github.libxposed:api:102.0.0'
+    implementation 'io.github.libxposed:service:102.0.0'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
